@@ -2,7 +2,7 @@ const express = require('express');
 const Post = require('../models/Post');
 const router = express.Router();
 const { getPosts, createPost, updatePost, deletePost } = require('../controllers/postsController');
-const authenticateUser = require('../middleware/auth');
+const {authenticateUser} = require('../middleware/auth');
 
 /**
  * @swagger
@@ -87,17 +87,7 @@ router.get('/', async (req, res) => {
  *                   type: string
  *                   example: Post created successfully
  */
-router.post('/', createPost);
-router.post('/', authenticateUser, async (req, res) => {
-    const { title, content, author } = req.body;
-    try {
-        const post = new Post({ title, content, author });
-        await post.save();
-        res.status(201).json({ message: 'Post created successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+router.post('/', authenticateUser, createPost );
 
 /**
  * @swagger
@@ -129,7 +119,6 @@ router.post('/', authenticateUser, async (req, res) => {
  *       200:
  *         description: Post updated successfully
  */
-router.put('/', updatePost);
 router.put('/:id', authenticateUser, async (req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
@@ -159,7 +148,6 @@ router.put('/:id', authenticateUser, async (req, res) => {
  *       200:
  *         description: Post deleted successfully
  */
-router.delete('/:id', deletePost);
 router.delete('/:id', authenticateUser, async (req, res) => {
     const { id } = req.params;
     try {
