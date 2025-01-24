@@ -2,7 +2,7 @@ const express = require('express');
 const Post = require('../models/Post');
 const router = express.Router();
 const { getPosts, createPost, updatePost, deletePost } = require('../controllers/postsController');
-const authMiddleware = require('../middleware/auth');
+const authenticateUser = require('../middleware/auth');
 
 /**
  * @swagger

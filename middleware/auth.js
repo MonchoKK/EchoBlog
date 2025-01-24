@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // Middleware to verify JWT
-module.exports = (req, res, next) => {
+const authenticateUser = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer', '');
 
   // Check if token exists
