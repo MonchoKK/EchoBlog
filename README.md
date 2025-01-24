@@ -69,7 +69,7 @@ project-folder/
    Create a `.env` file in the root directory and add the following:
 
    ```env
-   PORT=5000
+   PORT=3002
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
    ```
@@ -80,10 +80,10 @@ project-folder/
    node server.js
    ```
 
-   The server will run at `http://localhost:5000`.
+   The server will run at `http://localhost:3002`.
 
 5. **Access Swagger UI**:
-   Visit `http://localhost:5000/api-docs` for API documentation.
+   Visit `http://localhost:3002/api-docs` for API documentation.
 
 ---
 
@@ -110,7 +110,7 @@ project-folder/
 
 #### Example Request (Postman)
 
-**POST** `http://localhost:5000/api/auth/signup`
+**POST** `http://localhost:3002/api/auth/signup`
 
 Headers:
 
