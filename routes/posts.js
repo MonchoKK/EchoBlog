@@ -1,6 +1,8 @@
 const express = require('express');
 const Post = require('../models/Post');
 const router = express.Router();
+const { getPosts, createPost, updatePost, deletePost } = require('../controllers/postsController');
+const authMiddleware = require('../middleware/auth');
 
 /**
  * @swagger
@@ -41,6 +43,7 @@ const router = express.Router();
  *                     type: string
  *                     format: date-time
  */
+router.get('/', getPosts);
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find().populate('author', 'name');
@@ -84,6 +87,7 @@ router.get('/', async (req, res) => {
  *                   type: string
  *                   example: Post created successfully
  */
+router.post('/', createPost);
 router.post('/', async (req, res) => {
     const { title, content, author } = req.body;
     try {
@@ -125,6 +129,7 @@ router.post('/', async (req, res) => {
  *       200:
  *         description: Post updated successfully
  */
+router.put('/', updatePost);
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
@@ -154,6 +159,7 @@ router.put('/:id', async (req, res) => {
  *       200:
  *         description: Post deleted successfully
  */
+router.delete('/:id', deletePost);
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {

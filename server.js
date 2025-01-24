@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const authRoutes = require('./routes/auth');
+const postsRoutes = require('./routes/posts');
 
 const app = express();
 
@@ -18,7 +19,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: 'http://localhost:5000',
+                url: 'http://localhost:3001',
             },
         ],
     },
@@ -47,11 +48,12 @@ const connectDB = async () => {
 connectDB();
 
 // Routes
+app.use('/api/posts', postsRoutes);
 app.use('/api/auth', authRoutes);
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
