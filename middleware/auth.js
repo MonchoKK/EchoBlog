@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 // Middleware to verify JWT
 module.exports = (req, res, next) => {
-  const token = req.header('Authorization');
+  const token = req.header('Authorization')?.replace('Bearer', '');
 
   // Check if token exists
   if (!token) {
@@ -15,6 +15,7 @@ module.exports = (req, res, next) => {
     req.user = verified;
     next(); // Proceed to the next middleware or route handler
   } catch (error) {
+    console.error('Token verification failed:', error);
     res.status(400).json({ message: 'Invalid token.' });
   }
 };

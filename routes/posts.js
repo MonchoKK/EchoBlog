@@ -88,7 +88,7 @@ router.get('/', async (req, res) => {
  *                   example: Post created successfully
  */
 router.post('/', createPost);
-router.post('/', async (req, res) => {
+router.post('/', authenticateUser, async (req, res) => {
     const { title, content, author } = req.body;
     try {
         const post = new Post({ title, content, author });
@@ -130,7 +130,7 @@ router.post('/', async (req, res) => {
  *         description: Post updated successfully
  */
 router.put('/', updatePost);
-router.put('/:id', async (req, res) => {
+router.put('/:id', authenticateUser, async (req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
     try {
@@ -160,7 +160,7 @@ router.put('/:id', async (req, res) => {
  *         description: Post deleted successfully
  */
 router.delete('/:id', deletePost);
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateUser, async (req, res) => {
     const { id } = req.params;
     try {
         const post = await Post.findByIdAndDelete(id);

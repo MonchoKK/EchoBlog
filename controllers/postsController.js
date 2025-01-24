@@ -18,6 +18,10 @@ const createPost = async (req, res) => {
       return res.status(400).json({ message: 'Title and content are required' });
     }
 
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
     const post = new Post({
       title,
       content,
